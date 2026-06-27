@@ -128,7 +128,7 @@ def render_prediction_tab():
 
         with st.spinner("Consultando al motor de inferencia..."):
             try:
-                response = requests.post(API_URL, json=payload, timeout=5)
+                response = requests.post(API_URL, json=payload, timeout=30)
 
                 if response.status_code == 200:
                     result = response.json()
@@ -192,7 +192,7 @@ def render_analytics_tab():
     with col1:
         st.subheader("Matriz de Confusión")
         st.image(Image.open(f"{img_dir}/confusion_matrix.png"), use_column_width=True)
-
+https://customer-churn-prediction-platform-5k5a3mc69taczdd2pxvzkr.streamlit.app/5https://customer-churn-prediction-platform-5k5a3mc69taczdd2pxvzkr.streamlit.apphttps://customer-churn-prediction-platform-5k5a3mc69taczdd2pxvzkr.streamlit.app/
         st.subheader("Importancia de Variables (SHAP)")
         st.image(Image.open(f"{img_dir}/shap_bar.png"), use_column_width=True)
 
