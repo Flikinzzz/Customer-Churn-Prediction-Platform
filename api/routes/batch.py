@@ -1,21 +1,25 @@
 import shutil
 import uuid
 
-from fastapi import APIRouter, BackgroundTasks, File, HTTPException, UploadFile
+from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 
 from api.schemas.batch import BatchStatusResponse, BatchTaskResponse
 from api.services.batch_service import BatchService
 
 router = APIRouter(prefix="/batch", tags=["Batch Processing"])
-batch_service = BatchService()
+
+
+def get_batch_service():
+    return BatchService()
 
 
 @router.post("/upload", response_model=BatchTaskResponse)
 async def upload_batch_csv(
-    background_tasks: BackgroundTasks, file: UploadFile = File(...)
+    background_tasks: BackgroundTasks,
+    file: UploadFile = File(...),
+    batch_service: BatchService = Depends(get_batch_service),
 ):
-
     if not file.filename.endswith(".csv"):
         raise HTTPException(status_code=400, detail="El archivo debe ser un .csv")
 
@@ -38,7 +42,9 @@ async def upload_batch_csv(
 
 
 @router.get("/status/{task_id}", response_model=BatchStatusResponse)
-def get_batch_status(task_id: str):
+def get_batch_status(
+    task_id: str, batch_service: BatchService = Depends(get_batch_service)
+):
     status_info = batch_service.get_task_status(task_id)
     return BatchStatusResponse(
         task_id=task_id,
@@ -48,7 +54,9 @@ def get_batch_status(task_id: str):
 
 
 @router.get("/download/{task_id}", response_class=FileResponse)
-def download_batch_results(task_id: str):
+def download_batch_results(
+    task_id: str, batch_service: BatchService = Depends(get_batch_service)
+):
     file_path = batch_service.get_output_file_path(task_id)
     return FileResponse(
         path=file_path, filename=f"predicciones_{task_id}.csv", media_type="text/csv"
