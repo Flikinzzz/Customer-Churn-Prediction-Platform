@@ -1,7 +1,6 @@
 """Orquestador de entrenamiento con MLflow y Optuna."""
 
 import os
-from typing import Any
 
 import joblib
 import mlflow

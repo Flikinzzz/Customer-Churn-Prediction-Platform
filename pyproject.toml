@@ -12,8 +12,18 @@ include = '\.pyi?$'
 [tool.ruff]
 line-length = 88
 target-version = "py312"
+
+[tool.ruff.lint]
+# Seleccionamos las reglas de estilo y buenas prácticas
 select = ["E", "F", "I", "W", "UP", "B", "SIM"]
-ignore = []
+# Ignoramos reglas que chocan con FastAPI y textos largos de Streamlit
+ignore = [
+    "E501",   # Ignorar líneas largas (evita conflictos con descripciones largas)
+    "B008",   # Ignorar llamadas a funciones (necesario para FastAPI Depends/File)
+    "B904",   # Ignorar encadenamiento estricto de excepciones
+    "SIM108", # Permitir if/else tradicionales
+    "UP046"   # Ignorar sintaxis estricta de genéricos en repositorios
+]
 
 [tool.isort]
 profile = "black"

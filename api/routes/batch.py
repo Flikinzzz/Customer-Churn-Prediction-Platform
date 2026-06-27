@@ -1,6 +1,5 @@
 import shutil
 import uuid
-from pathlib import Path
 
 from fastapi import APIRouter, BackgroundTasks, File, HTTPException, UploadFile
 from fastapi.responses import FileResponse
