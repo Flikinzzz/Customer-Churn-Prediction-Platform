@@ -1,12 +1,14 @@
+from datetime import UTC, datetime
 
 from fastapi import APIRouter
-from datetime import datetime, UTC
 
 router = APIRouter(tags=["Operaciones"])
+
 
 @router.get("/health")
 def health_check():
     return {"status": "ok", "timestamp": datetime.now(UTC).isoformat()}
+
 
 @router.get("/version")
 def get_version():

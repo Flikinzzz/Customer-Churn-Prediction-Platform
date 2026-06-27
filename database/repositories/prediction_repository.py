@@ -1,7 +1,9 @@
 """Implementación del repositorio para el modelo de predicciones."""
 
 from collections.abc import Sequence
+
 from sqlalchemy.orm import Session
+
 from database.models.prediction import PredictionModel
 from database.repositories.base import BaseRepository
 
@@ -28,7 +30,9 @@ class PredictionRepository(BaseRepository[PredictionModel]):
             .all()
         )
 
-    def update_ground_truth(self, prediction_id: int, actual_label: int) -> PredictionModel | None:
+    def update_ground_truth(
+        self, prediction_id: int, actual_label: int
+    ) -> PredictionModel | None:
         """Actualiza el resultado real (ground truth) para evaluar la precisión del modelo.
 
         Args:

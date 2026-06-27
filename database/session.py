@@ -2,8 +2,9 @@
 
 from collections.abc import Generator
 from os import environ
+
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.orm import Session, sessionmaker
 
 DATABASE_URL = environ.get("DATABASE_URL", "sqlite:///./churn_prediction.db")
 

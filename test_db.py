@@ -1,7 +1,7 @@
 from database.base import Base
-from database.session import engine, SessionLocal
 from database.models.prediction import PredictionModel
 from database.repositories.prediction_repository import PredictionRepository
+from database.session import SessionLocal, engine
 
 # 1. Crear las tablas en la base de datos local (SQLite)
 print("Creando tablas...")
@@ -25,11 +25,11 @@ nueva_prediccion = PredictionModel(
         "MultipleLines": "No phone service",
         "InternetService": "DSL",
         "MonthlyCharges": 29.85,
-        "TotalCharges": 29.85
+        "TotalCharges": 29.85,
     },
     prediction_score=0.845,
     prediction_label=1,
-    model_version="v1.0.0"
+    model_version="v1.0.0",
 )
 
 repo.create(nueva_prediccion)

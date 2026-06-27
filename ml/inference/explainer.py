@@ -1,10 +1,12 @@
 """Módulo de Explainable AI utilizando SHAP."""
 
 import os
-import shap
-import pandas as pd
+
 import matplotlib.pyplot as plt
+import pandas as pd
+import shap
 from sklearn.pipeline import Pipeline
+
 
 class ShapExplainer:
     """Genera explicaciones de los modelos usando valores SHAP."""
@@ -13,16 +15,16 @@ class ShapExplainer:
         self.pipeline = pipeline
         self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
-        
+
         # Extraer los componentes del pipeline
-        self.preprocessor = self.pipeline.named_steps['preprocessor']
-        self.model = self.pipeline.named_steps['classifier']
+        self.preprocessor = self.pipeline.named_steps["preprocessor"]
+        self.model = self.pipeline.named_steps["classifier"]
 
     def generate_global_explanations(self, X_sample: pd.DataFrame) -> None:
         """Genera gráficos de importancia global (Summary Plot)."""
         # Transformar los datos crudos a través del preprocesador
         X_transformed = self.preprocessor.transform(X_sample)
-        
+
         # Obtener los nombres de las features después del OneHotEncoding
         feature_names = self.preprocessor[-1].get_feature_names_out()
         X_transformed_df = pd.DataFrame(X_transformed, columns=feature_names)
@@ -45,12 +47,12 @@ class ShapExplainer:
         plt.figure()
         shap.summary_plot(shap_values, X_transformed_df, show=False)
         plt.title("SHAP Summary Plot")
-        plt.savefig(f"{self.output_dir}/shap_summary.png", bbox_inches='tight')
+        plt.savefig(f"{self.output_dir}/shap_summary.png", bbox_inches="tight")
         plt.close()
-        
+
         # 2. Feature Importance Bar Plot
         plt.figure()
         shap.summary_plot(shap_values, X_transformed_df, plot_type="bar", show=False)
         plt.title("SHAP Feature Importance")
-        plt.savefig(f"{self.output_dir}/shap_bar.png", bbox_inches='tight')
+        plt.savefig(f"{self.output_dir}/shap_bar.png", bbox_inches="tight")
         plt.close()

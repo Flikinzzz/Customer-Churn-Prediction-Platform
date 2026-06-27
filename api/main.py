@@ -1,11 +1,8 @@
-
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from api.routes import health, predict, batch  
-
-from api.routes import health, predict
+from api.routes import batch, health, predict
 from database.base import Base
 from database.session import engine
 

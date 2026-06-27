@@ -1,7 +1,8 @@
 """Interfaz abstracta para el patrón repositorio."""
 
-from typing import Generic, TypeVar, Any
 from collections.abc import Sequence
+from typing import Any, Generic, TypeVar
+
 from sqlalchemy.orm import Session
 
 ModelType = TypeVar("ModelType")

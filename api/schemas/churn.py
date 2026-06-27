@@ -1,11 +1,12 @@
-
-from pydantic import BaseModel, ConfigDict, Field
 from typing import Literal
 
+from pydantic import BaseModel, ConfigDict, Field
+
+
 class CustomerData(BaseModel):
-    
+
     customerID: str = Field(default="N/A", description="ID único del cliente")
-    
+
     gender: Literal["Male", "Female"]
     SeniorCitizen: Literal[0, 1]
     Partner: Literal["Yes", "No"]
@@ -23,10 +24,15 @@ class CustomerData(BaseModel):
     Contract: Literal["Month-to-month", "One year", "Two year"]
     PaperlessBilling: Literal["Yes", "No"]
     PaymentMethod: Literal[
-        "Electronic check", "Mailed check", "Bank transfer (automatic)", "Credit card (automatic)"
+        "Electronic check",
+        "Mailed check",
+        "Bank transfer (automatic)",
+        "Credit card (automatic)",
     ]
     MonthlyCharges: float = Field(ge=0.0)
-    TotalCharges: float | str = Field(description="Puede ser un string vacío en clientes nuevos")
+    TotalCharges: float | str = Field(
+        description="Puede ser un string vacío en clientes nuevos"
+    )
 
     # Configuración para Swagger UI (Ejemplo automático)
     model_config = ConfigDict(
@@ -51,10 +57,11 @@ class CustomerData(BaseModel):
                 "PaperlessBilling": "Yes",
                 "PaymentMethod": "Electronic check",
                 "MonthlyCharges": 29.85,
-                "TotalCharges": 29.85
+                "TotalCharges": 29.85,
             }
         }
     )
+
 
 class PredictionResponse(BaseModel):
     prediction_id: int | None = None

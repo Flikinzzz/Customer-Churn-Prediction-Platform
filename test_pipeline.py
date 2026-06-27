@@ -1,6 +1,7 @@
 import pandas as pd
-from scripts.download_data import download_dataset
+
 from ml.pipeline.preprocessor import create_preprocessor_pipeline
+from scripts.download_data import download_dataset
 
 # 1. Descargar datos
 download_dataset()
@@ -22,7 +23,7 @@ X_processed = pipeline.fit_transform(X)
 
 # 4. Validar salida
 # Scikit-learn nos devuelve los nombres de las columnas generadas (OneHot)
-feature_names = pipeline.named_steps['preprocessor'].get_feature_names_out()
+feature_names = pipeline.named_steps["preprocessor"].get_feature_names_out()
 
 print(f"Forma después del preprocesamiento: {X_processed.shape}")
 print(f"Ejemplo de nuevas variables: {feature_names[-5:]}")

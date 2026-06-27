@@ -1,10 +1,11 @@
 """Definición de espacios de búsqueda de hiperparámetros para Optuna."""
 
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-import xgboost as xgb
 import lightgbm as lgb
+import xgboost as xgb
 from catboost import CatBoostClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+
 
 def get_model_and_space(trial, model_name: str):
     """Devuelve una instancia del modelo con hiperparámetros sugeridos por Optuna.
@@ -34,7 +35,7 @@ def get_model_and_space(trial, model_name: str):
             "learning_rate": trial.suggest_float("learning_rate", 1e-3, 0.3, log=True),
             "random_state": 42,
             "use_label_encoder": False,
-            "eval_metric": "logloss"
+            "eval_metric": "logloss",
         }
         return xgb.XGBClassifier(**param)
 
@@ -44,7 +45,7 @@ def get_model_and_space(trial, model_name: str):
             "max_depth": trial.suggest_int("max_depth", 3, 10),
             "learning_rate": trial.suggest_float("learning_rate", 1e-3, 0.3, log=True),
             "random_state": 42,
-            "verbose": -1
+            "verbose": -1,
         }
         return lgb.LGBMClassifier(**param)
 
@@ -54,8 +55,8 @@ def get_model_and_space(trial, model_name: str):
             "depth": trial.suggest_int("depth", 3, 10),
             "learning_rate": trial.suggest_float("learning_rate", 1e-3, 0.3, log=True),
             "random_seed": 42,
-            "verbose": False
+            "verbose": False,
         }
         return CatBoostClassifier(**param)
-    
+
     raise ValueError(f"Modelo {model_name} no soportado.")

@@ -2,7 +2,8 @@
 
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+
 from ml.pipeline.features import FeatureEngineer, TelcoDataCleaner
 
 
@@ -14,23 +15,33 @@ def create_preprocessor_pipeline() -> Pipeline:
     """
     # Variables después del feature engineering que necesitamos separar
     numeric_features = ["tenure", "MonthlyCharges", "TotalCharges", "ChargeRatio"]
-    
+
     categorical_features = [
-        "gender", "SeniorCitizen", "Partner", "Dependents", 
-        "PhoneService", "MultipleLines", "InternetService", 
-        "OnlineSecurity", "OnlineBackup", "DeviceProtection", 
-        "TechSupport", "StreamingTV", "StreamingMovies", 
-        "Contract", "PaperlessBilling", "PaymentMethod", "TenureGroup"
+        "gender",
+        "SeniorCitizen",
+        "Partner",
+        "Dependents",
+        "PhoneService",
+        "MultipleLines",
+        "InternetService",
+        "OnlineSecurity",
+        "OnlineBackup",
+        "DeviceProtection",
+        "TechSupport",
+        "StreamingTV",
+        "StreamingMovies",
+        "Contract",
+        "PaperlessBilling",
+        "PaymentMethod",
+        "TenureGroup",
     ]
 
     # Transformaciones por tipo de dato
-    numeric_transformer = Pipeline(steps=[
-        ("scaler", StandardScaler())
-    ])
+    numeric_transformer = Pipeline(steps=[("scaler", StandardScaler())])
 
-    categorical_transformer = Pipeline(steps=[
-        ("onehot", OneHotEncoder(handle_unknown="ignore", sparse_output=False))
-    ])
+    categorical_transformer = Pipeline(
+        steps=[("onehot", OneHotEncoder(handle_unknown="ignore", sparse_output=False))]
+    )
 
     # Ensamblar ColumnTransformer
     column_processor = ColumnTransformer(
@@ -41,10 +52,12 @@ def create_preprocessor_pipeline() -> Pipeline:
     )
 
     # Pipeline maestro
-    full_pipeline = Pipeline(steps=[
-        ("cleaner", TelcoDataCleaner()),
-        ("engineer", FeatureEngineer()),
-        ("preprocessor", column_processor)
-    ])
+    full_pipeline = Pipeline(
+        steps=[
+            ("cleaner", TelcoDataCleaner()),
+            ("engineer", FeatureEngineer()),
+            ("preprocessor", column_processor),
+        ]
+    )
 
     return full_pipeline
