@@ -25,9 +25,7 @@ def main():
     """)
 
     # Crear pestañas para organizar la interfaz
-    tab_predict, tab_analytics = st.tabs(
-        ["Nueva Predicción", "Análisis del Modelo"]
-    )
+    tab_predict, tab_analytics = st.tabs(["Nueva Predicción", "Análisis del Modelo"])
 
     with tab_predict:
         render_prediction_tab()
@@ -145,7 +143,7 @@ def render_prediction_tab():
 
 
 def display_prediction_result(result: dict):
-   
+
     risk_score = result["churn_risk_score"]
     will_churn = result["will_churn"]
 
@@ -175,7 +173,7 @@ def display_prediction_result(result: dict):
 
 
 def render_analytics_tab():
-    
+
     st.header("Auditoría del Modelo (Explainable AI)")
     st.write(
         "Este panel muestra el rendimiento del modelo Campeón activo (CatBoost) y explica cómo toma sus decisiones."

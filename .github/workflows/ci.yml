@@ -27,7 +27,7 @@ jobs:
         pip install -r requirements.txt
         
     - name: Revisión de Formato (Black)
-      run: black --check .
+      run: black --check -q .
       
     - name: Revisión de Imports (isort)
       run: isort --check-only .
