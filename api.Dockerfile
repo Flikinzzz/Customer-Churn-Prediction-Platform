@@ -19,7 +19,6 @@ RUN pip install --no-cache-dir --upgrade pip && \
 COPY api/ /app/api/
 COPY database/ /app/database/
 COPY ml/saved_models/ /app/ml/saved_models/
-COPY core/ /app/core/
 COPY ml/ /app/ml/
 
 # Exponer el puerto
