@@ -19,14 +19,14 @@ API_URL = os.getenv("API_URL", "http://localhost:8000/predict/")
 
 
 def main():
-    st.title("📉 Plataforma de Predicción de Fuga de Clientes (Churn)")
+    st.title("Plataforma de Predicción de Fuga de Clientes ")
     st.markdown("""
     Este dashboard consume un modelo de **Machine Learning (CatBoost)** a través de una **API REST (FastAPI)** para evaluar el riesgo de que un cliente abandone los servicios de la empresa.
     """)
 
     # Crear pestañas para organizar la interfaz
     tab_predict, tab_analytics = st.tabs(
-        ["🔮 Nueva Predicción", "📊 Análisis del Modelo"]
+        ["Nueva Predicción", "Análisis del Modelo"]
     )
 
     with tab_predict:
@@ -54,7 +54,7 @@ def render_prediction_tab():
     with col2:
         st.subheader("Servicios y Contrato")
         tenure = st.number_input(
-            "Meses de antigüedad (Tenure)", min_value=0, max_value=100, value=1
+            "Meses de antigüedad ", min_value=0, max_value=100, value=1
         )
         contract = st.selectbox(
             "Tipo de Contrato", ["Month-to-month", "One year", "Two year"]
@@ -101,7 +101,7 @@ def render_prediction_tab():
 
     # Botón de envío
     st.markdown("---")
-    if st.button("🚀 Evaluar Riesgo de Fuga", type="primary", use_container_width=True):
+    if st.button("Evaluar Riesgo de Fuga", type="primary", use_container_width=True):
         # Mapeo de datos para el payload JSON
         payload = {
             "customerID": "STREAMLIT-USER",
@@ -140,12 +140,12 @@ def render_prediction_tab():
                     st.json(response.json())
             except requests.exceptions.ConnectionError:
                 st.error(
-                    "❌ No se pudo conectar a la API. Asegúrese de que FastAPI esté corriendo en el puerto 8000."
+                    "No se pudo conectar a la API. Asegúrese de que FastAPI esté corriendo en el puerto 8000."
                 )
 
 
 def display_prediction_result(result: dict):
-    """Muestra los resultados de forma visual."""
+   
     risk_score = result["churn_risk_score"]
     will_churn = result["will_churn"]
 
@@ -165,7 +165,7 @@ def display_prediction_result(result: dict):
         )
 
     with col3:
-        status = "ALERTA: Alta Probabilidad" if will_churn else "✅ CLIENTE SEGURO"
+        status = "ALERTA: Alta Probabilidad" if will_churn else "CLIENTE SEGURO"
         st.info(status)
 
     if will_churn:
@@ -175,7 +175,7 @@ def display_prediction_result(result: dict):
 
 
 def render_analytics_tab():
-    """Muestra las métricas y explicabilidad del modelo pre-generadas."""
+    
     st.header("Auditoría del Modelo (Explainable AI)")
     st.write(
         "Este panel muestra el rendimiento del modelo Campeón activo (CatBoost) y explica cómo toma sus decisiones."
