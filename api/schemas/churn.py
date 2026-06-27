@@ -1,10 +1,9 @@
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 class CustomerData(BaseModel):
-
     customerID: str = Field(default="N/A", description="ID único del cliente")
 
     gender: Literal["Male", "Female"]
@@ -33,6 +32,34 @@ class CustomerData(BaseModel):
     TotalCharges: float | str = Field(
         description="Puede ser un string vacío en clientes nuevos"
     )
+
+    @model_validator(mode="after")
+    def validar_cargos(self) -> "CustomerData":
+        # 1. Validar que Cargo Mensual no sea 0
+        if self.MonthlyCharges == 0:
+            raise ValueError("Lógica de Negocio: El Cargo Mensual no puede ser 0.")
+
+        # Si el Cargo Total es un string vacío (cliente nuevo), lo dejamos pasar
+        if self.TotalCharges in ["", " "]:
+            return self
+
+        # Intentar convertir el Cargo Total a número
+        try:
+            total = float(self.TotalCharges)
+        except (ValueError, TypeError):
+            return self  # Falla la conversión por otra razón, lo ignoramos aquí
+
+        # 2. Validar que Cargo Total no sea 0
+        if total == 0:
+            raise ValueError("Lógica de Negocio: El Cargo Total no puede ser 0.")
+
+        # 3. Validar consistencia entre ambos
+        if total < self.MonthlyCharges:
+            raise ValueError(
+                "Lógica de Negocio: El Cargo Total no puede ser menor al Cargo Mensual."
+            )
+
+        return self
 
     # Configuración para Swagger UI (Ejemplo automático)
     model_config = ConfigDict(
