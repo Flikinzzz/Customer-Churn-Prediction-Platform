@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "customer-churn-platform"
+version = "0.1.0"
+description = "Production-ready Customer Churn Prediction Platform"
+authors = ["Tu Nombre <tu@email.com>"]
+
+[tool.black]
+line-length = 88
+target-version = ['py312']
+include = '\.pyi?$'
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+select = ["E", "F", "I", "W", "UP", "B", "SIM"]
+ignore = []
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --cov=api --cov=ml --cov=database --cov-report=term-missing"
+testpaths = [
+    "tests",
+]

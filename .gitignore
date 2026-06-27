@@ -1,0 +1,37 @@
+# Entornos virtuales y secretos
+venv/
+env/
+.env
+
+# Caché de Python y herramientas de Testing/Linting
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+.coverage
+
+# Bases de datos y MLflow
+*.db
+*.sqlite3
+mlflow.db
+mlruns/
+catboost_info/
+
+# Archivos de Datos (Ignoramos los CSV pero mantenemos las carpetas)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/batch_inputs/*
+!data/batch_inputs/.gitkeep
+data/batch_outputs/*
+!data/batch_outputs/.gitkeep
+
+# Modelos guardados (Ignoramos los .joblib pero mantenemos la carpeta)
+ml/saved_models/*
+!ml/saved_models/.gitkeep
+
+# Archivos de Sistema Operativo
+.DS_Store
+Thumbs.db
