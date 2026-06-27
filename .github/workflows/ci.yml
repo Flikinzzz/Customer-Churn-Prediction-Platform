@@ -36,7 +36,7 @@ jobs:
       run: ruff check .
       
     - name: Pruebas Unitarias y Coverage (Pytest)
-      run: pytest --cov=api --cov=ml --cov-report=term-missing
+      run: python -m pytest --cov=api --cov=ml --cov-report=term-missing
 
   docker-build-check:
     name: Docker Build Validation
