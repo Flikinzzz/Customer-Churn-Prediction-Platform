@@ -1,4 +1,3 @@
-# docker-compose.yml
 version: '3.8'
 
 services:
@@ -9,9 +8,9 @@ services:
     container_name: churn_api
     ports:
       - "8000:8000"
-    volumes:
+    #volumes:
       # Montamos la base de datos para que persista aunque el contenedor se reinicie
-      - ./churn_prediction.db:/app/churn_prediction.db
+     # - ./churn_prediction.db:/app/churn_prediction.db
     restart: unless-stopped
     networks:
       - churn_network
@@ -24,7 +23,6 @@ services:
     ports:
       - "8501:8501"
     environment:
-      # Le decimos a Streamlit que busque la API por el nombre del contenedor ("api")
       - API_URL=http://api:8000/predict/
     depends_on:
       - api
