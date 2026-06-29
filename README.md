@@ -21,8 +21,7 @@ Este proyecto demuestra conocimientos de desarrollo de software y Machine Learni
 
 > El proyecto está desplegado utilizando servicios independientes para el frontend y el backend.
 
-* **Dashboard Interactivo (Streamlit):** https://customer-churn-prediction-platform-5k5a3mc69taczdd2pxvzkr.streamlit.app/
-* **API REST (Render):** https://churn-api-production-w9fi.onrender.com
+* **Dashboard  (Streamlit):** https://customer-churn-prediction-platform-5k5a3mc69taczdd2pxvzkr.streamlit.app/
 * **Documentación de la API (Swagger):** https://churn-api-production-w9fi.onrender.com/docs
 * **Repositorio GitHub:** https://github.com/Flikinzzz/Customer-Churn-Prediction-Platform
 
@@ -176,3 +175,7 @@ Este gráfico permite interpretar cómo cada característica influye en la predi
 Este análisis aporta transparencia al modelo y facilita explicar las predicciones a usuarios de negocio.
 
 ---
+
+## Para descargar el dataset con el que se entreno el modelo escribir el siguiente comando en la raiz.
+
+- python scripts/download_data.py
