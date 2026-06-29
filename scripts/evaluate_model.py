@@ -1,5 +1,3 @@
-"""Script ejecutable para evaluar el modelo campeón."""
-
 import joblib
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -16,12 +14,10 @@ def main():
     X = df.drop(columns=["Churn"])
     y = df["Churn"]
 
-    # Simular un split para evaluar con datos "nuevos"
     _, X_test, _, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     pipeline = joblib.load("ml/saved_models/champion_model.joblib")
 
-    # Generar predicciones
     y_prob = pipeline.predict_proba(X_test)[:, 1]
     y_pred = pipeline.predict(X_test)
 
@@ -39,7 +35,6 @@ def main():
     print("Generando explicaciones SHAP (esto puede tardar unos segundos)...")
     explainer = ShapExplainer(pipeline)
 
-    # Tomar una muestra para SHAP (computacionalmente costoso si son muchos datos)
     X_sample = X_test.sample(200, random_state=42)
     explainer.generate_global_explanations(X_sample)
 

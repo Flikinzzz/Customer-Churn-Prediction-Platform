@@ -1,5 +1,3 @@
-"""Módulo de sesión y conexión a la base de datos."""
-
 from collections.abc import Generator
 from os import environ
 
